@@ -99,12 +99,13 @@ class CashCalculator (Calculator):
         if today_cash_remained > 0:
             return f'На сегодня осталось {today_cash_remained} {currency_name}'
         else:
+            today_cash_remained = abs(today_cash_remained)
             return ('Денег нет, держись: '
-                    f'твой долг - {abs(today_cash_remained)} {currency_name}')
+                    f'твой долг - {today_cash_remained} {currency_name}')
 
 
 # создадим калькулятор денег с дневным лимитом 1000
-if __name__ == "__main__":
+if __name__ == '__main__':
     cash_calculator = CashCalculator(1000)
     # дата в параметрах не указана,
     # так что по умолчанию к записи
@@ -118,6 +119,6 @@ if __name__ == "__main__":
     cash_calculator.add_record(Record(amount=3000,
                                       comment='бар в Танин др',
                                       date='08.11.2019'))
-    print(cash_calculator.get_today_cash_remained('ua'))
+    print(cash_calculator.get_today_cash_remained('rub'))
     # должно напечататься
     # На сегодня осталось 555 руб
