@@ -78,8 +78,9 @@ class CashCalculator (Calculator):
 
     def get_today_cash_remained(self, currency):
         """Сколько ещё можно потратить сегодня."""
+        today_remained = self.get_today_remained()
         # если баланс уже равен 0, завершаем функцию
-        if self.get_today_remained() == 0:
+        if today_remained == 0:
             return 'Денег нет, держись'
         # словарь валют и их курса к рублю
         currencies = {
@@ -88,17 +89,13 @@ class CashCalculator (Calculator):
             'rub': ('руб', 1.0),
         }
         # проверяем корректность ввода валюты
-        for i in currencies:
-            is_correct = i == currency
-            if is_correct:
-                break
-        if not is_correct:
+        if currency not in currencies:
             return 'Указана некорректная валюта'
         # это кажется проще, чем вызывать через индексы списка
         currency_name, currency_rate = currencies[currency]
         # состояние дневного баланса с учетом валюты
         today_cash_remained = round(
-            self.get_today_remained() / currency_rate, 2)
+            today_remained / currency_rate, 2)
         if today_cash_remained > 0:
             return f'На сегодня осталось {today_cash_remained} {currency_name}'
         else:
@@ -121,6 +118,6 @@ if __name__ == "__main__":
     cash_calculator.add_record(Record(amount=3000,
                                       comment='бар в Танин др',
                                       date='08.11.2019'))
-    print(cash_calculator.get_today_cash_remained('rub'))
+    print(cash_calculator.get_today_cash_remained('ua'))
     # должно напечататься
     # На сегодня осталось 555 руб
