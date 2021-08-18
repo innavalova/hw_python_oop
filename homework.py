@@ -108,7 +108,7 @@ class CashCalculator (Calculator):
 if __name__ == '__main__':
     cash_calculator = CashCalculator(1000)
     # дата в параметрах не указана,
-    # так что по умолчанию к записи
+    # поэтому по умолчанию к записи
     # должна автоматически добавиться сегодняшняя дата
     cash_calculator.add_record(Record(amount=145,
                                       comment='кофе'))
